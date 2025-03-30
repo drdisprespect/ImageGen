@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>React App</title>
+    <style>
+      /* Light and Dark Mode Background Colors */
+      body.light-mode {
+        background-color: #ffffff;
+      }
+      body.dark-mode {
+        background-color: #121212;
+      }
+      /* Canvas Background Styling */
+      #matrixCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none; /* Allows interactions with your React app */
+        z-index: -1; /* Places the canvas behind other content */
+      }
+    </style>
+  </head>
+  <body class="light-mode">
+    <!-- Canvas as Background for the Dot Magnification Effect -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <!-- Your React app mounts here -->
+    <div id="root"></div>
+    
+    <!-- Load the background canvas script (e.g., matrix.js) -->
+    <script src="%PUBLIC_URL%/matrix.js"></script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+/* ======================
+   CSS Variables for Themes
+========================== */
+:root {
+    /* Dark Mode */
+    --dark-bg: #121212;
+    --dark-chat-bg: #1f1f1f;
+    --dark-ai-bg: #2a2a2a;
+    --dark-user-bg: #333333;
+    --dark-input-bg: #1f1f1f;
+    --dark-text: #e0e0e0;
+    --dark-primary: #00aaff;
+    --dark-primary-dark: #0088cc;
+    --dark-border: #444;
+    
+    /* Light Mode */
+    --light-bg: #f7f7f7;
+    --light-chat-bg: #ffffff;
+    --light-ai-bg: #f0f0f0;
+    --light-user-bg: #e0ffe0;
+    --light-input-bg: #ffffff;
+    --light-text: #333333;
+    --light-primary: #00aaff;
+    --light-primary-dark: #0088cc;
+    --light-border: #ddd;
+}
+
+body *{
+    font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+}
+  
+/* ======================
+   Chatbot Container & Toggle Button
+========================== */
+.chatbot-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.chatbot-toggle-button {
+    background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1100;
+}
+
+/* Image inside the button should be circular */
+.chatbot-toggle-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Makes the image circular */
+}
+
+/* Hover Effect: Rotating RGB ring */
+.chatbot-toggle-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    animation: rotateRGB 2s linear infinite; /* Rotating border animation */
+}
+
+/* Animation for the rotating RGB ring */
+@keyframes rotateRGB {
+    0% {
+        border: 4px solid red;
+        transform: rotate(0deg);
+    }
+    25% {
+        border: 4px solid green;
+        transform: rotate(90deg);
+    }
+    50% {
+        border: 4px solid blue;
+        transform: rotate(180deg);
+    }
+    75% {
+        border: 4px solid yellow;
+        transform: rotate(270deg);
+    }
+    100% {
+        border: 4px solid red;
+        transform: rotate(360deg);
+    }
+}
+
+/* ======================
+   Chatbox
+========================== */
+.chatbox {
+    width: 420px;
+    height: 650px;
+    background-color: var(--dark-bg);
+    border-radius: 16px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.darkmode .chatbox {
+    background-color: var(--dark-bg);
+}
+
+body.lightmode .chatbox {
+    background-color: var(--light-bg);
+}
+
+/* ======================
+   Chatbox Header
+========================== */
+.chatbox-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 600;
+    position: relative;
+    background: linear-gradient(135deg, var(--dark-primary), var(--dark-primary-dark));
+    color: var(--dark-text);
+    animation: headerFadeIn 0.5s ease-out;
+}
+
+body.lightmode .chatbox-header {
+    background: linear-gradient(135deg, var(--light-primary), var(--light-primary-dark));
+    color: var(--light-text);
+}
+
+/* Improved close button styling */
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.close-button:hover {
+    transform: rotate(90deg);
+    opacity: 0.8;
+}
+
+/* ======================
+   Chatbox Body
+========================== */
+.chatbox-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: var(--dark-chat-bg);
+}
+
+body.lightmode .chatbox-body {
+    background-color: var(--light-chat-bg);
+}
+
+/* ======================
+   Messages
+========================== */
+.message {
+    padding: 14px 18px;
+    border-radius: 20px;
+    max-width: 80%;
+    font-size: 1em;
+    line-height: 1.4;
+    animation: messageAppear 0.3s ease;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: var(--dark-user-bg);
+    color: var(--dark-text);
+    border-bottom-right-radius: 4px;
+}
+
+.message.ai {
+    align-self: flex-start;
+    background-color: var(--dark-ai-bg);
+    color: var(--dark-text);
+    border-bottom-left-radius: 4px;
+}
+
+body.lightmode .message.user {
+    background-color: var(--light-user-bg);
+    color: var(--light-text);
+}
+
+body.lightmode .message.ai {
+    background-color: var(--light-ai-bg);
+    color: var(--light-text);
+}
+
+/* ======================
+   Chatbox Footer
+========================== */
+.chatbox-footer {
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid;
+    transition: border-color 0.3s ease;
+    background-color: var(--dark-chat-bg);
+}
+
+body.darkmode .chatbox-footer {
+    border-color: var(--dark-border);
+}
+
+body.lightmode .chatbox-footer {
+    border-color: var(--light-border);
+    background-color: var(--light-chat-bg);
+}
+
+.chatbox-footer input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid;
+    border-radius: 30px;
+    background-color: var(--dark-input-bg);
+    color: var(--dark-text);
+    transition: border 0.3s ease;
+    outline: none;
+}
+
+body.lightmode .chatbox-footer input {
+    background-color: var(--light-input-bg);
+    color: var(--light-text);
+}
+
+.chatbox-footer input:focus {
+    border-color: var(--dark-primary);
+}
+
+.send-button {
+    padding: 0 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: var(--dark-primary);
+    color: #fff;
+}
+
+body.lightmode .send-button {
+    background-color: var(--light-primary);
+}
+
+.send-button:hover {
+    transform: scale(1.08);
+    background-color: var(--dark-primary-dark);
+}
+
+/* ======================
+   Animations
+========================== */
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+  
+@keyframes headerFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
+  
+@keyframes messageAppear {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}

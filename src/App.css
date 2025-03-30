@@ -1,0 +1,699 @@
+/* Global Reset & Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+  --light-mode-bg: #c0b5b5;
+  --dark-mode-bg: #353131;
+  /* You can adjust these values to your liking */
+}
+
+/* Global Font & Base Font-size */
+html, body, h1, h2, h3, h4, h5, h6, p, span, a, button, input, label, textarea {
+  margin: 0;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+  transition: background-color 0.3s, color 0.3s;
+  letter-spacing: 0.05em;
+  overflow-x: hidden;
+}
+
+
+
+/* Generated Image Container */
+.generated-image-container {
+  margin: 1rem auto;
+  max-width: 37.5rem;  /* Consistent width with other main containers */
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  background-color: var(--light-mode-bg);
+  transition: background-color 0.3s;
+}
+
+body.dark-mode .generated-image-container {
+  background-color: var(--dark-mode-bg);
+}
+
+/* Placeholder Image Styling */
+.placeholder-image {
+  width: 100%;
+  opacity: 0.5;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+/* When modal is open, keep sidebar expanded */
+body.modal-open .sidebar {
+  width: 70vw !important;
+}
+
+/* When modal is open in light mode, set background to white with a black outline */
+body.modal-open:not(.dark-mode) .sidebar {
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+/* App Wrapper */
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+/* Sidebar (Gallery Navigation) */
+/* Minimized state */
+.sidebar.minimized {
+  width: 3.125rem; /* 50px */
+  background-color: #222;
+  padding: 0.5rem;
+  border-right: 0.0625rem solid #444;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Expanded state */
+.sidebar.expanded {
+  width: 70vw;
+  background-color: #222;
+  padding: 1rem;
+  border-right: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  transition: width 0.3s ease-in-out;
+  z-index: 2000;
+}
+
+/* Sidebar Content */
+.sidebar .sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Sidebar Gallery Button */
+.sidebar-gallery-button {
+  background-color: #2196F3;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.sidebar-gallery-button:hover {
+  background-color: #1976D2;
+  transform: scale(1.05);
+}
+
+/* Sidebar Close Button */
+.sidebar-close-button {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  background-color: transparent;
+  border: none;
+  color: #ed1515;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.5s, color 0.5s;
+}
+.sidebar-close-button:hover {
+  transform: rotate(360deg);
+  color: red;
+}
+.sidebar-close-button:active {
+  transition: none;
+}
+
+/* Mini Spinner */
+.spinner-mini {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ---------- Light Mode Overrides for Sidebar ---------- */
+body:not(.dark-mode) .sidebar.minimized {
+  background-color: #fff;
+  border-right: 0.0625rem solid #000;
+}
+
+body:not(.dark-mode) .sidebar.expanded {
+  background-color: #fff;
+  border-right: 0.0625rem solid #000;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 16.25rem; /* approx 260px */
+  width: calc(100% - 16.25rem);
+  padding: 2rem;
+  position: relative;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: flex-end; /* Align toggle to top right */
+  align-items: center;
+  margin-bottom: 2rem;
+  animation: slideDown 1s ease-out;
+}
+.app-header h1 {
+  display: none;
+}
+
+/* Toggle Button */
+.toggle-button {
+  padding: 0.5rem 1rem;
+  background-color: #3f3c3c;
+  border: none;
+  border-radius: 0.3125rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.toggle-button:hover {
+  background-color: #ef2929;
+}
+/* ---------- Unified Input Container (Two-Level Layout) ---------- */
+.unified-input-container {
+  display: flex;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #222;
+  border-radius: 0.625rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 37.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  outline: 1px solid black;
+}
+
+/* Light Mode Override for the Unified Input Container */
+body:not(.dark-mode) .unified-input-container {
+  background-color: #fff;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+}
+
+/* Dark Mode Override for the Unified Input Container Outline */
+body.dark-mode .unified-input-container {
+  outline: 1px solid white;
+
+}
+
+.input-row {
+  width: 100%;
+
+}
+.input-row .prompt-input {
+  width: 100%;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+  padding: 0.75rem;
+  border: 0.125rem solid #555;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: #fbfbfb;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.controls-row .model-select-container {
+  position: relative;
+  min-width: 150px;
+  font-family: inherit !important;
+}
+.controls-row .model-select-button {
+  background: linear-gradient(135deg, #151616, #07141f);
+  color: #03c3dc;
+  border: 1px solid #03c3dc;
+  border-radius: 0.625rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: inherit !important;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+}
+
+body:not(.dark-mode) .controls-row .model-select-button {
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  color: #00bbcc;
+  border: 1px solid #0069cc;
+}
+.controls-row .model-select-button:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+.controls-row .model-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #222;
+  border: 0.0625rem solid #555;
+  border-radius: 0.625rem;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+  margin-top: 0.25rem;
+  z-index: 10;
+  min-width: 8.125rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  font-family: inherit !important;
+}
+.controls-row .model-dropdown-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 0.85rem;
+  color: #fff;
+}
+.controls-row .model-dropdown-item:hover {
+  background-color: #333;
+  transform: translateX(5px);
+}
+.controls-row .arrow-button {
+  background-color: #03c3dc;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 2.5rem;
+  transition: background-color 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.controls-row .arrow-button:hover {
+  background-color: #03dcd5;
+  transform: scale(1.05);
+}
+.controls-row .arrow-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.controls-row .loading-spinner {
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+}
+.controls-row .arrow-button.cancel-arrow-button {
+  background-color: #FF5722;
+  transition: transform 0.5s ease, background-color 0.5s ease;
+}
+.controls-row .arrow-button.cancel-arrow-button:hover {
+  transform: rotate(360deg) scale(1.1);
+  background-color: #E64A19;
+}
+.controls-row .arrow-button.cancel-arrow-button:active {
+  transition: none;
+}
+
+/* ---------- End Unified Input Container ---------- */
+
+/* ---------- Legacy Form Styles ---------- */
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1s ease-in-out;
+}
+body.dark-mode .prompt-input {
+  background-color: #201e1e;
+    font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+  color: #e0e0e0;
+  border: 0.0625rem solid #f4eeee;
+}
+body:not(.dark-mode) .prompt-input {
+  background-color: #f5f5f5;
+  color: #000;
+  border: 0.0625rem solid #060606;
+}
+.prompt-input {
+  flex: 2 1 400px;
+  padding: 0.75rem;
+  border: 0.125rem solid #555;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: #fbfbfb;
+  height: 1cm;
+  max-height: 6em;
+  overflow-y: auto;
+  resize: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* ---------- End Legacy Form Styles ---------- */
+
+/* Custom select wrapper (legacy) */
+.custom-select {
+  position: relative;
+  display: list-item;
+  width: 9.375rem;
+}
+.custom-select select {
+  flex: 2 1 400px;
+  height: 1.7cm;
+  width: 100%;
+  padding: 0.75rem 2rem 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: #e0e0e0;
+  border: 0.0625rem solid #555;
+  border-radius: 0.625rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.custom-select select::-ms-expand {
+  display: none;
+}
+.custom-select select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+.custom-select select:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0.5rem rgba(33,150,243,0.6);
+}
+
+/* ---------- Buttons ---------- */
+.generate-button,
+.regenerate-button,
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace !important;
+
+}
+.generate-button {
+  background-color: #2196F3;
+  color: #fff;
+  background: linear-gradient(135deg, #0689f5, #63787c);
+}
+.generate-button:hover {
+  background-color: #1976D2;
+  transform: scale(1.1);
+}
+.regenerate-button {
+  background-color: #FF5722;
+  color: #fff;
+}
+.regenerate-button:hover {
+  background-color: #E64A19;
+  transform: scale(1.1);
+}
+.cancel-button {
+  background-color: #9E9E9E;
+  color: #fff;
+}
+.cancel-button:hover {
+  background-color: #757575;
+  transform: scale(1.05);
+}
+.generate-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- Progress & Loading ---------- */
+.progress-container {
+  margin-bottom: 1rem;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  min-height: 3.125rem;
+}
+.progress-bar {
+  width: 100%;
+  height: 1.25rem;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  margin-bottom: 0.3125rem;
+  background: linear-gradient(90deg, #444, #222);
+  border: 0.0625rem solid #555;
+}
+.progress-info {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.1rem;
+}
+.eta-text {
+  font-style: italic;
+}
+.loading-container {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Spinner for DALL·E */
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1s ease-in-out;
+}
+.loader {
+  border: 0.5rem solid #f3f3f3;
+  border-top: 0.5rem solid #2196F3;
+  border-radius: 50%;
+  width: 3.75rem;
+  height: 3.75rem;
+  animation: spin 2s linear infinite;
+  margin-bottom: 0.3125rem;
+}
+
+/* ---------- Image Display ---------- */
+.image-container {
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+.generated-image {
+  max-width: 100%;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+.error-text {
+  color: red;
+  font-weight: bold;
+}
+/* ---------- Bubbles Container (Aligned with Input) ---------- */
+body.dark-mode .bubbles-container,
+body:not(.dark-mode) .bubbles-container {
+  position: relative;
+  max-width: 37.5rem;
+  margin: 0 auto 1rem;
+  height: 9.375rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  animation: backgroundPulse 10s ease-in-out infinite;
+}
+body.dark-mode .bubbles-container {
+  outline: 0.0625rem solid #fff;
+  background-color: #353131 !important;
+  animation: none !important;
+}
+
+body:not(.dark-mode) .bubbles-container {
+  outline: 0.0625rem solid #000;
+  background-color: #fff !important;
+  animation: none !important;
+}
+
+/* Each Bubble */
+.bubble {
+  position: absolute;
+  background: linear-gradient(135deg, #222d36, #21CBF3);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.625rem;
+  cursor: grab;
+  user-select: none;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  animation: bubbleFloat linear infinite;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.bubble:hover {
+  animation: none;
+  transform: scale(1.6);
+  box-shadow: 0px 0.5rem 1.25rem rgb(33, 150, 243);
+  transition: transform 1s ease, box-shadow 1s ease;
+}
+
+.bubble:active {
+  cursor: grabbing;
+}
+
+.bubble.pop {
+  transform: scale(0);
+  /* Removed opacity change to keep bubbles fully opaque */
+}
+
+/* Floating animation for bubbles */
+@keyframes bubbleFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(var(--float-x), var(--float-y)) scale(1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Background pulse for bubbles container */
+@keyframes backgroundPulse {
+  0%, 100% { background: inherit; }
+  50% { background: inherit; }
+}
+
+/* ---------- Gallery Slider (Vertical Grid) ---------- */
+.gallery-slider-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(40,40,40,0.8);
+  border-radius: 0.625rem;
+  outline: 0.0625rem solid #fff;
+}
+.gallery-slider-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #e0e0e0;
+}
+.gallery-scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr));
+  gap: 1rem;
+  overflow-y: auto;
+  max-height: 43.75rem;
+  padding-bottom: 1rem;
+}
+.gallery-scroll::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: #f9fafa;
+  border-radius: 0.25rem;
+}
+.gallery-item {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.5);
+}
+
+/* ---------- Full-screen Gallery Modal ---------- */
+.gallery-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4000;
+  pointer-events: auto;
+  cursor: pointer;
+  
+}
+.expanded-gallery-image {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.625rem rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+  animation: zoomIn 0.2s ease-in-out;
+}
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Fluid Dynamic Cursor Follower ---------- */
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(33,150,243,1) 0%, rgba(33,150,243,0.3) 70%, transparent 100%);
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  z-index: 1000;
+}
+
+#matrixCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* behind your content */
+}
+
+
+/* ---------- Animations ---------- */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
